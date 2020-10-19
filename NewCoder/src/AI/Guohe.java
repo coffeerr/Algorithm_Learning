@@ -6,6 +6,7 @@ public class Guohe {
     static boolean  flag = true;
     static Stack<String> visit = new Stack<String>();
 
+    
     private static boolean dfs(int M, int C, int m, int c) {
 
         if (M < 0 || C < 0 || m < 0 || c < 0) // 非法
@@ -51,8 +52,8 @@ public class Guohe {
         return false;
     }
     public static void main(String []args) {
-        int M = 6;
-        int C = 5;
+        int M = 3;
+        int C = 3;
         int m = 0;
         int c = 0;
         String str = "M=" + M + ",C=" + C + ",m=" + m + ",c=" + c + ",boat=left";
