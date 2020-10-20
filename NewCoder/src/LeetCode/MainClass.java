@@ -1,66 +1,100 @@
+/* -----------------------------------
+ *  WARNING:
+ * -----------------------------------
+ *  Your code may fail to compile
+ *  because it contains public class
+ *  declarations.
+ *  To fix this, please remove the
+ *  "public" keyword from your class
+ *  declarations.
+ */
 package LeetCode;
 
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Solution {
-    public static void sort(int[] arr) {
-        int length = arr.length;
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
-                }
-            }
-        }
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        int ans = process(root, 1);
+        return ans;
     }
 
-
-    public boolean canMakeArithmeticProgression(int[] arr) {
-        sort(arr);
-        for (int i = 0; i < arr.length - 2; i++) {
-            int m = arr[i + 2] - arr[i + 1];
-            int n = arr[i + 1] - arr[i];
-            if (m != n) return false;
+    public static int process(TreeNode node, int level) {
+        if(node.left == null && node.right == null){
+            return level;
         }
-        return true;
+        int ans = Integer.MAX_VALUE;
+        if(node.left!=null){
+            ans = Math.min(process(node.left,level+1),ans);
+        }
+        if(node.right!=null){
+            ans = Math.min(process(node.right,level+1),ans);
+        }
+        return ans;
     }
 }
 
 public class MainClass {
-    public static int[] stringToIntegerArray(String input) {
+    public static TreeNode stringToTreeNode(String input) {
         input = input.trim();
         input = input.substring(1, input.length() - 1);
         if (input.length() == 0) {
-            return new int[0];
+            return null;
         }
 
         String[] parts = input.split(",");
-        int[] output = new int[parts.length];
-        for (int index = 0; index < parts.length; index++) {
-            String part = parts[index].trim();
-            output[index] = Integer.parseInt(part);
-        }
-        return output;
-    }
+        String item = parts[0];
+        TreeNode root = new TreeNode(Integer.parseInt(item));
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(root);
 
-    public static String booleanToString(boolean input) {
-        return input ? "True" : "False";
+        int index = 1;
+        while (!nodeQueue.isEmpty()) {
+            TreeNode node = nodeQueue.remove();
+
+            if (index == parts.length) {
+                break;
+            }
+
+            item = parts[index++];
+            item = item.trim();
+            if (!item.equals("null")) {
+                int leftNumber = Integer.parseInt(item);
+                node.left = new TreeNode(leftNumber);
+                nodeQueue.add(node.left);
+            }
+
+            if (index == parts.length) {
+                break;
+            }
+
+            item = parts[index++];
+            item = item.trim();
+            if (!item.equals("null")) {
+                int rightNumber = Integer.parseInt(item);
+                node.right = new TreeNode(rightNumber);
+                nodeQueue.add(node.right);
+            }
+        }
+        return root;
     }
 
     public static void main(String[] args) throws IOException {
-        //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        int[] arr = {3,5,1};
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        String line;
+        while ((line = in.readLine()) != null) {
+            TreeNode root = stringToTreeNode(line);
 
-        boolean ret = new Solution().canMakeArithmeticProgression(arr);
+            int ret = new Solution().minDepth(root);
 
-        String out = booleanToString(ret);
+            String out = String.valueOf(ret);
 
-        System.out.print(out);
+            System.out.print(out);
+        }
     }
 }
