@@ -1,5 +1,11 @@
 package Interview.Collection;
 
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 /**
  * @description:
  * @author: Desmand
@@ -7,18 +13,37 @@ package Interview.Collection;
  */
 
 public class Basic {
+    //    public static InheritableThreadLocal<String> inheritableThreadLocal = new InheritableThreadLocal<>();
+//   // static ThreadLocal threadLocal = new ThreadLocal();
+//    public static void main(String[] args) {
+//
+//        inheritableThreadLocal.set("父线程放入");
+//        System.out.println("父线程"+Thread.currentThread().getName());
+//        new Thread(() -> {
+//            System.out.println("子线程"+Thread.currentThread().getName());
+//            System.out.println("子线程获取到的值：" + inheritableThreadLocal.get());
+//        }).start();
+//
+//    }
+//    -----
+//    static ThreadLocal threadLocal = new ThreadLocal();
+//
+//    public static void main(String[] args) {
+//        threadLocal.set("father's");
+//        System.out.println("父线程"+Thread.currentThread().getName());
+//        new Thread(()->{
+//            System.out.println("子线程"+Thread.currentThread().getName());
+//            System.out.println("子线程获取到的值：" + threadLocal.get());
+//        }).start();
+//    }
+//
+//    @Override
+//    public void run() {
+//
+//    }
     public static void main(String[] args) {
-        int a = 1;
-        int b = 2;
-        System.out.println(a == b);
-        String m = "hello";
-        String m1 = m.intern();
-        String m2 = new String("hello");
-        System.out.println("m==m1   " + (m == m1) + "");
-        System.out.println("m==m2   " + (m == m2) + "");
-        System.out.println("m.equals(m1)   " + m.equals(m1));
-        System.out.println("m.equals(m2)   " + m.equals(m2));
+        //ThreadPoolExecutor te = new ThreadPoolExecutor();
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
     }
-
 
 }
