@@ -6,12 +6,12 @@ import java.io.StreamTokenizer;
 import java.util.Stack;
 
 /**
- * @description: CD170
+ * @description: CD171
  * @author: Desmand
  * @time: 2020/10/30 8:11 上午
  */
 
-public class CD170 {
+public class CD171 {
     public static class TreeNode {
         public int val;
         public TreeNode left;
@@ -78,6 +78,9 @@ public class CD170 {
 
     public static boolean check(TreeNode t1, TreeNode t2) {
         if (t2 == null) {
+            if(t1!=null){
+               return false;
+            }
             return true;
         }
         if (t1 == null || t1.val != t2.val) {
