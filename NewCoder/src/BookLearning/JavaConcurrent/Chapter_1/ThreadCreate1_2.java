@@ -1,4 +1,4 @@
-package BookLearning.JavaConcurrent;
+package BookLearning.JavaConcurrent.Chapter_1;
 
 import java.util.Date;
 import java.util.concurrent.Callable;
