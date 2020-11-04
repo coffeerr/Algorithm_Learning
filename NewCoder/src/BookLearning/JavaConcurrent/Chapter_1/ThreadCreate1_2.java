@@ -29,14 +29,15 @@ public class ThreadCreate1_2 {
 
         @Override
         public String call() throws Exception {
-            System.out.println(">>>" + "任务启动");
-            Date dateTmp1 = new Date();
-            Thread.sleep(1000);
-            Date dateTmp2 = new Date();
-            long time = dateTmp2.getTime() - dateTmp1.getTime();
-            System.out.println(">>>" + "任务终止");
-            return "任务返回运行结果,当前任务时间【" + time + "毫秒】";
-//            return "这是创建Thread的第三种方法";
+            return "这是创建Thread的第三种方法";
+//            System.out.println(">>>" + "任务启动");
+//            Date dateTmp1 = new Date();
+//            Thread.sleep(1000);
+//            Date dateTmp2 = new Date();
+//            long time = dateTmp2.getTime() - dateTmp1.getTime();
+//            System.out.println(">>>" + "任务终止");
+//            return "任务返回运行结果,当前任务时间【" + time + "毫秒】";
+
         }
     }
 
@@ -48,10 +49,11 @@ public class ThreadCreate1_2 {
         //demo2.run();
         //new Thread(demo2).start();
 
-        FutureTask<String> futureTask = new FutureTask<>(new ThreadDemo3());
-        new Thread(futureTask).start();
+
         demo1.start();
         new Thread(demo2).start();
+        FutureTask<String> futureTask = new FutureTask<>(new ThreadDemo3());
+        new Thread(futureTask).start();
         try {
             String result = futureTask.get();
             System.out.println("result: " + result);
