@@ -1,6 +1,7 @@
 package Interview.Collection;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @description:
@@ -10,7 +11,17 @@ import java.util.Random;
 
 public class ThreadRandomTest {
     public static void main(String[] args) {
-        Random r = new Random();
-        System.out.println(r.nextInt(100));
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ThreadLocalRandom r = ThreadLocalRandom.current();
+               // r.setSeed(10);
+                System.out.println("子线程随机数："+r.nextInt(100));
+            }
+        });
+        t1.start();
+        ThreadLocalRandom r2 = ThreadLocalRandom.current();
+        //r2.setSeed(10);
+        System.out.println("父线程随机数："+r2.nextInt(100));
     }
 }

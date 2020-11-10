@@ -64,15 +64,15 @@ public class CD17 {
         for (int i = 1; i <= rest; i++) {
             for (int j = 1; j <= n; j++) {
                 if (j == 1) {
-                    dp[i][j] = dp[i - 1][2]%mod;
+                    dp[i][j] = dp[i - 1][2] % mod;
                 } else if (j == n) {
-                    dp[i][j] = dp[i - 1][n - 1]%mod;
+                    dp[i][j] = dp[i - 1][n - 1] % mod;
                 } else {
-                    dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j + 1])%mod;
+                    dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j + 1]) % mod;
                 }
             }
         }
-        return dp[rest][cur]%mod;
+        return dp[rest][cur] % mod;
     }
 
     public static int waysWalk(int n, int cur, int rest, int p) {
@@ -83,11 +83,38 @@ public class CD17 {
         return walk(n, cur, rest, p);
     }
 
+    /**
+     * GTD
+     * 空间压缩法
+     * 使用两个变量存储
+     */
+    public static int ways2(int n, int cur, int rest, int p) {
+        int mod = (int) (1e9 + 7);
+        int dp[] = new int[n+1];
+        dp[p] = 1;
+        int left, tmp;
+        for (int i = 1; i <= rest; i++) {
+            left = dp[1];
+            for (int j = 1; j <= n; j++) {
+                tmp = dp[j] % mod;
+                if (j == 1) {
+                    dp[j] = dp[j + 1] % mod;
+                } else if (j == n) {
+                    dp[j] = dp[j - 1] % mod;
+                } else {
+                    dp[j] = (left + dp[j + 1]) % mod;
+                }
+                left = tmp;
+            }
+        }
+        return dp[cur];
+    }
+
     public static void main(String[] args) {
         int n = nextInt();
         int cur = nextInt();
         int rest = nextInt();
         int p = nextInt();
-        System.out.println(waysWalk(n, cur, rest, p));
+        System.out.println(ways2(n, cur, rest, p));
     }
 }
