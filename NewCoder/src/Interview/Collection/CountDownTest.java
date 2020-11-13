@@ -14,7 +14,7 @@ public class CountDownTest {
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(2);
         Worker w1 = new Worker("张三", 2000, latch);
         Worker w2 = new Worker("李四", 3000, latch);
         w1.start();
