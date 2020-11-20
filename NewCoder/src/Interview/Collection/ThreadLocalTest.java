@@ -21,5 +21,14 @@ public class ThreadLocalTest {
             }
         });
         thread.start();
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(;;){
+
+                }
+            }
+        });
+        thread2.start();
     }
 }

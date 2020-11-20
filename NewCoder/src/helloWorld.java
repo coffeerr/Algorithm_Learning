@@ -12,6 +12,7 @@ public class helloWorld {
 //        System.out.println(a==b);
         String a = "hello";
         char[]b = a.toCharArray();
-        System.out.println(b[5]);
+        System.out.println(a.length());
+        System.out.println(a.charAt(1));
     }
 }
