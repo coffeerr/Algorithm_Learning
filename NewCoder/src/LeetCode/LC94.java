@@ -70,4 +70,28 @@ public class LC94 {
         }
         return list;
     }
+
+    public List<Integer> inorderTraversal22(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        TreeNode cur = root;
+        TreeNode mosRight;
+        while (cur != null) {
+            mosRight = cur.left;
+            if (mosRight != null) {
+                while (mosRight != null && mosRight.right != cur) {
+                    mosRight = mosRight.right;
+                }
+                if (mosRight.right == null) {
+                    mosRight.right = cur;
+                    cur = cur.left;
+                    continue;
+                } else {
+                    mosRight.right = null;
+                }
+            }
+            list.add(cur.val);
+            cur = cur.right;
+        }
+        return list;
+    }
 }
