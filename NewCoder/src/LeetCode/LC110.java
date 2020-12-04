@@ -70,7 +70,7 @@ public class LC110 {
         } else {
             flag = false && flag;
         }
-        return new ReturnType(h+1,flag );
+        return new ReturnType(h + 1, flag);
     }
 
     public static class ReturnType {
@@ -97,7 +97,7 @@ public class LC110 {
         nodeQueue.add(root);
 
         int index = 1;
-        while(!nodeQueue.isEmpty()) {
+        while (!nodeQueue.isEmpty()) {
             TreeNode node = nodeQueue.remove();
 
             if (index == parts.length) {
