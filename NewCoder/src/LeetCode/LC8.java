@@ -11,39 +11,40 @@ import java.util.List;
 
 public class LC8 {
     public int myAtoi(String s) {
-        char[] c = s.toCharArray();
-        StringBuilder tem = new StringBuilder();
-        List<Integer> list = new ArrayList<>();
-        int arr = 0;
-        int count = 0;
-        while (c[count] != ' ') {
-            count++;
+        int state = 0;//0 初始状态｜｜ 1--正整数｜｜2--负整数
+        long ans = 0;
+        char str[] = s.toCharArray();
+        for (char c : str) {
+            if (c == ' ' && state == 0) continue;
+            else if (c == '+' && state == 0) {
+                state = 1;
+            } else if (c == '-' && state == 0) {
+                state = 2;
+            } else if (c >= '0' && c <= '9' && state == 0) {
+                state = 1;
+                ans = ans * 10 + (c - '0');
+            } else if (c >= '0' && c <= '9') {
+                ans = ans * 10 + (c - '0');
+                if (ans > Integer.MAX_VALUE) break;
+            } else break;
         }
-        for (int i = count; i < c.length; i++) {
-            if (c[i] < '0' || c[i] > 9) {
-                if (c[i] == '-') {
-                    arr = -1;
-                } else if (c[i] == '+') {
-                    arr = 1;
-                } else {
-                    return 0;
-                }
-            } else {
-                list.add(c[i] - '0');
+
+        if (ans > Integer.MAX_VALUE) {
+            if (state == 1) {
+                ans = Integer.MAX_VALUE;
+            } else if (state == 2) {
+                ans = Integer.MIN_VALUE;
             }
         }
-        if (list.size() == 0) return 0;
-        int sum = 0;
-        int carry = 10 * arr;
-        for (int k = 0; k < list.size(); k++) {
-            sum = sum * carry + list.get(k);
-            if (sum > Integer.MAX_VALUE / 10) return Integer.MAX_VALUE;
-            if (sum < Integer.MIN_VALUE / 10) return Integer.MIN_VALUE;
+        if (state == 2) {
+            ans = -ans;
         }
-        return sum;
+        return (int) ans;
     }
 
     public static void main(String[] args) {
+
         System.out.println(Integer.MIN_VALUE);
+        System.out.println(Integer.MAX_VALUE);
     }
 }
