@@ -1,5 +1,6 @@
 package LeetCode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -10,18 +11,15 @@ import java.util.Arrays;
 
 public class LC300 {
     public int lengthOfLIS(int[] nums) {
-        int res = 0;
-        int[] dp = new int[nums.length];
+        int[] dp = new int[nums.length + 1];
         Arrays.fill(dp, 1);
+        int max = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[j] < nums[i]) {
-                    //dp[i]记录了i位置之前的最长升序元素个数
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
+                if (nums[i] > nums[j]) dp[i] = Math.max(dp[i], dp[j] + 1);
             }
-            res = Math.max(res, dp[i]);
+            max = dp[i] > max ? dp[i] : max;
         }
-        return res;
+        return max;
     }
 }
