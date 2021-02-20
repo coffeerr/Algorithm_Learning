@@ -1,5 +1,7 @@
 package LeetCode;
 
+import java.util.PriorityQueue;
+
 /**
  * @description:
  * @author: Desmand
@@ -7,22 +9,6 @@ package LeetCode;
  */
 
 public class LC23 {
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
 
 
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -52,11 +38,28 @@ public class LC23 {
 
     public static ListNode mergeKLists(ListNode[] lists) {
         if (lists.length == 1) return lists[0];
-        if (lists.length == 0 || lists==null) return null;
+        if (lists.length == 0 || lists == null) return null;
         ListNode l3 = mergeTwoLists(lists[0], lists[1]);
         for (int i = 2; i < lists.length; i++) {
-            l3 = mergeTwoLists(l3,lists[i]);
+            l3 = mergeTwoLists(l3, lists[i]);
         }
         return l3;
+    }
+
+    public ListNode mergeKLists2(ListNode[] lists) {
+        //关键是这个优先队列的使用
+        PriorityQueue<ListNode> q = new PriorityQueue<>((a, b) -> (a.val - b.val));
+        ListNode dummy = new ListNode(-1), tail = dummy;
+        for (ListNode node : lists) {
+            q.add(node);
+        }
+        while (!q.isEmpty()) {
+            ListNode cur = q.poll();
+            if(cur.next!=null)q.add(cur.next);
+            tail.next = cur;
+            tail = tail.next;
+            q.add(tail.next);
+        }
+        return dummy;
     }
 }
